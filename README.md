@@ -1,5 +1,3 @@
-"# React-Redux-Shopping-Cart" 
-
 <h1 align='center'>This is a React Shopping Cart Project using asynchronously Redux for fetching the Data from the Firebase Database Service.</h1>
 
 This is a simple application, where I use Redux for managing my App State.
