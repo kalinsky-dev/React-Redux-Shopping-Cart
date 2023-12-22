@@ -1,4 +1,4 @@
-<h1 align='center'>This is a React Shopping Cart Project using asynchronously Redux for fetching the Data from the Firebase Database Service.</h1>
+<h1 align='center'>This is a React Shopping Cart Project using asynchronously Redux for fetching the Data from the Firebase Database Service</h1>
 
 ## Bootstrap the Application
 
