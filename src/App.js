@@ -7,6 +7,8 @@ import Products from './components/Shop/Products';
 import Notification from './components/UI/Notification';
 import { uiActions } from './store/ui-slice';
 
+let isInitial = true;
+
 function App() {
   const showCart = useSelector((state) => state.ui.cartIsVisible);
   const notification = useSelector((state) => state.ui.notification);
@@ -15,6 +17,14 @@ function App() {
 
   // Override the existing cart data in the database with the latest cart data
   useEffect(() => {
+    // With isInitial, I can prevent the useEffect from running on the first render.
+    // This is because I don't want to send an HTTP request to the database when the app first loads.
+    // I only want to send an HTTP request when the user adds or removes an item from the cart.
+    if (isInitial) {
+      isInitial = false;
+      return;
+    }
+
     dispatch(
       uiActions.showNotification({
         status: 'pending',
