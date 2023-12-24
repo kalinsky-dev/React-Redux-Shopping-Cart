@@ -16,6 +16,39 @@ function App() {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+  // Fetch the existing cart data from the database
+  useEffect(() => {
+    fetch('https://react-http-51b6e-default-rtdb.firebaseio.com/cart.json')
+      .then((response) => {
+        // console.log(response);
+
+        if (!response.ok) {
+          throw new Error('Fetching cart data failed.');
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        // console.log(data);
+
+        dispatch(
+          cartActions.replaceCart({
+            items: data.items || [],
+            totalQuantity: data.totalQuantity,
+          })
+        );
+      })
+      .catch((error) => {
+        dispatch(
+          uiActions.showNotification({
+            status: 'error',
+            title: 'Error!',
+            message: 'Fetching cart data failed!',
+          })
+        );
+      });
+  }, [dispatch]);
+
   // Override the existing cart data in the database with the latest cart data
   useEffect(() => {
     // With isInitial, I can prevent the useEffect from running on the first render.
@@ -62,39 +95,6 @@ function App() {
         );
       });
   }, [cart, dispatch]);
-
-  // Fetch the existing cart data from the database
-  useEffect(() => {
-    fetch('https://react-http-51b6e-default-rtdb.firebaseio.com/cart.json')
-      .then((response) => {
-        // console.log(response);
-
-        if (!response.ok) {
-          throw new Error('Fetching cart data failed.');
-        }
-
-        return response.json();
-      })
-      .then((data) => {
-        // console.log(data);
-
-        dispatch(
-          cartActions.replaceCart({
-            items: data.items || [],
-            totalQuantity: data.totalQuantity,
-          })
-        );
-      })
-      .catch((error) => {
-        dispatch(
-          uiActions.showNotification({
-            status: 'error',
-            title: 'Error!',
-            message: 'Fetching cart data failed!',
-          })
-        );
-      });
-  }, [dispatch]);
 
   return (
     <Fragment>
