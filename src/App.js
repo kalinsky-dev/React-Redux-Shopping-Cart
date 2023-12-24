@@ -59,6 +59,11 @@ function App() {
       return;
     }
 
+    // With cart.change, I can prevent the useEffect from running when the user first loads the app.
+    if (!cart.change) {
+      return;
+    }
+
     dispatch(
       uiActions.showNotification({
         status: 'pending',
