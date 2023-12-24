@@ -65,13 +65,6 @@ function App() {
 
   // Fetch the existing cart data from the database
   useEffect(() => {
-    dispatch(
-      uiActions.showNotification({
-        status: 'pending',
-        title: 'Fetching...',
-        message: 'Fetching cart data!',
-      })
-    );
     fetch('https://react-http-51b6e-default-rtdb.firebaseio.com/cart.json')
       .then((response) => {
         // console.log(response);
@@ -89,14 +82,6 @@ function App() {
           cartActions.replaceCart({
             items: data.items || [],
             totalQuantity: data.totalQuantity,
-          })
-        );
-
-        dispatch(
-          uiActions.showNotification({
-            status: 'success',
-            title: 'Success!',
-            message: 'Fetched cart data successfully!',
           })
         );
       })
