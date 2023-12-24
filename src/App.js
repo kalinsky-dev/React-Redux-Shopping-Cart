@@ -73,7 +73,10 @@ function App() {
     );
     fetch('https://react-http-51b6e-default-rtdb.firebaseio.com/cart.json', {
       method: 'PUT',
-      body: JSON.stringify(cart),
+      body: JSON.stringify({
+        items: cart.items,
+        totalQuantity: cart.totalQuantity,
+      }),
     })
       .then((response) => {
         // console.log(response);
